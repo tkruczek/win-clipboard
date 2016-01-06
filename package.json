@@ -1,0 +1,27 @@
+{
+  "name": "win-clipboard",
+  "version": "0.1.0",
+  "description": "Module for accessing various formats of  Windows clipboard.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkruczek/win-clipboard.git"
+  },
+  "keywords": [
+    "clipboard",
+    "html"
+  ],
+  "author": "Tomasz Kruczek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tkruczek/win-clipboard/issues"
+  },
+  "homepage": "https://github.com/tkruczek/win-clipboard#readme",
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.1.0"
+  }
+}
