@@ -10,6 +10,15 @@ int getClipboardFormatsCount() {
     return numFormats;
 }
 
+v8::Local<v8::String> getClipboardFormatName(UINT format) {
+    char formatName[256];
+    if (GetClipboardFormatName(format, formatName, sizeof(formatName))) {
+        return v8::String::New( formatName , strlen(formatName));
+    } else {
+        return v8::String::Empty();
+    }
+}
+
 v8::Local<v8::Array> getClipboardFormats() {
     v8::Local<v8::Array> formats;
     int numFormats;
@@ -67,6 +76,10 @@ void GetClipboardFormatsMethod(const Nan::FunctionCallbackInfo<v8::Value>& info)
   info.GetReturnValue().Set(getClipboardFormats());
 }
 
+void GetClipboardFormatNameMethod(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+    info.GetReturnValue().Set(getClipboardFormatName((uint32_t) (info[0]->Uint32Value())));
+}
+
 void Init(v8::Local<v8::Object> exports) {
   exports->Set(Nan::New("getData").ToLocalChecked(),
                 Nan::New<v8::FunctionTemplate>(getClipboardMethod)->GetFunction());
@@ -76,6 +89,9 @@ void Init(v8::Local<v8::Object> exports) {
 
   exports->Set(Nan::New("getFormats").ToLocalChecked(),
                 Nan::New<v8::FunctionTemplate>(GetClipboardFormatsMethod)->GetFunction());
+
+  exports->Set(Nan::New("getFormatName").ToLocalChecked(),
+                  Nan::New<v8::FunctionTemplate>(GetClipboardFormatNameMethod)->GetFunction());
 }
 
 NODE_MODULE(clipboard, Init)
